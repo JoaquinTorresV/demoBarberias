@@ -1,26 +1,119 @@
+/* app/globals.css */
 @import "tailwindcss";
 
+/* -------------------- Tokens / Tema -------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0a0a0a;       /* fondo oscuro */
+  --fg: #f6f6f6;       /* texto principal */
+  --primary: #ffffff;  /* botones/links claros */
+  --accent: #9a9a9a;   /* bordes / subtítulos */
+
+  /* Navbar (si usas navbar claro clásico) */
+  --navbar-bg: #fff;
+  --navbar-fg: #111;
+
+  /* Hairline para bordes suaves reutilizables */
+  --hairline: color-mix(in srgb, var(--fg) 12%, transparent);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Opcional: fuentes base si no usas next/font */
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+               Roboto, "Helvetica Neue", Arial, "Noto Sans",
+               "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* -------------------- Base -------------------- */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+
+/* Anclas: evita que el navbar fijo tape secciones (#id) */
+:where(section[id]) { scroll-margin-top: 5rem; }
+
+/* -------------------- Navbar (claro clásico, opcional) -------------------- */
+.navbar {
+  background: var(--navbar-bg);
+  color: var(--navbar-fg);
+  @apply w-full flex items-center justify-between px-6 py-4 shadow-md;
+}
+.navbar a {
+  color: var(--navbar-fg);
+  font-weight: 500;
+  transition: color .2s;
+}
+.navbar a:hover { color: var(--accent); }
+
+/* -------------------- Superficies / Tarjetas -------------------- */
+.card {
+  @apply rounded-2xl overflow-hidden;
+  background: color-mix(in srgb, var(--fg) 5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+}
+.border-accent { border-color: color-mix(in srgb, var(--fg) 12%, transparent); }
+.text-accent { color: var(--accent); }
+
+/* Panel grande (para envolver grids o el bloque de contacto/mapa) */
+.panel {
+  background: color-mix(in srgb, var(--fg) 6%, transparent);
+  border: 1px solid var(--hairline);
+  border-radius: 1.25rem; /* ~ rounded-2xl */
+}
+
+/* Banda/halo sutil detrás de una sección */
+.band { position: relative; isolation: isolate; }
+.band::before {
+  content: "";
+  position: absolute; inset: -2rem 0; z-index: -1;
+  background:
+    radial-gradient(60% 50% at 50% -10%, rgba(255,255,255,.06), transparent 70%),
+    linear-gradient(to bottom, rgba(255,255,255,.03), transparent);
+}
+
+/* -------------------- Chips (WhatsApp + redes) -------------------- */
+.chip {
+  display: inline-flex; align-items: center; gap: .5rem;
+  border-radius: 9999px; font-size: .875rem;
+  padding: .375rem .75rem;
+}
+.chip-dark {
+  background: color-mix(in srgb, var(--fg) 10%, transparent);
+  color: var(--fg);
+}
+.chip-dark:hover { background: color-mix(in srgb, var(--fg) 16%, transparent); }
+.chip-wa { background: #25D366; color: #000; } /* WhatsApp verde con texto negro */
+
+/* -------------------- Botones -------------------- */
+.btn {
+  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #000;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid color-mix(in srgb, var(--fg) 20%, transparent);
+}
+
+/* -------------------- Layout de secciones -------------------- */
+.section {
+  @apply mx-auto max-w-6xl px-4;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+/* -------------------- Hero overlay -------------------- */
+.hero-overlay::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.5);
 }
