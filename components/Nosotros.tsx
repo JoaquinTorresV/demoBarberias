@@ -1,12 +1,24 @@
-export default function About({ data }: { data: { title: string; text: string; image?: string } }) {
+import Image from "next/image";
+// Make sure AboutData is exported from "@/lib/site.types" or update to the correct type name
+// Example fix if the type is actually named 'About' in site.types:
+import type { About } from "@/lib/site.types";
+
+export default function Nosotros({ data }: { data: About }) {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-16 grid md:grid-cols-2 gap-8 items-center">
+    <section id="about" className="mx-auto max-w-6xl px-4 py-16 grid gap-6 md:grid-cols-2">
       <div>
-        <h2 className="text-2xl font-bold mb-3">{data.title}</h2>
+        <h2 className="text-2xl font-bold mb-2">{data.title}</h2>
         <p className="opacity-80">{data.text}</p>
       </div>
-      <div className="rounded-2xl overflow-hidden bg-neutral-900">
-        {data.image && <img src={data.image} alt="About" className="w-full h-full object-cover grayscale" />}
+      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10">
+        <Image
+          src={data.image || "/images/about-modern.jpg"}
+          alt={data.title}
+          fill
+          className="object-cover"
+          sizes="(min-width: 768px) 50vw, 100vw"
+          priority={false}
+        />
       </div>
     </section>
   );

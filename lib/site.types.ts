@@ -45,8 +45,11 @@ export type SiteConfig = {
     hero: { title: string; subtitle?: string; image?: string; ctaLabel?: string; ctaHref?: string };
     cuts: CutItem[];
     specialists: Specialist[];
-    about: { title: string; text: string; image?: string };
+    about: About;
     reviews: Review[];
     contact: { title: string; subtitle?: string; mapQuery?: string };
   };
-};
+}
+
+// Tipo reutilizable para la sección about
+export type About = { title: string; text: string; image?: string };

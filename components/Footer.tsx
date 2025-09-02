@@ -1,3 +1,5 @@
+// components/Footer.tsx
+import Image from "next/image";
 import cfg from "@/lib/site.config";
 
 function Icon({ name }: { name: "wa" | "ig" | "fb" }) {
@@ -13,19 +15,25 @@ export default function Footer() {
 
   return (
     <footer className="mt-12 border-t border-[color:var(--hairline)]">
-      {/* bloque principal: se apila en móvil, 3 columnas en md+ */}
+      {/* bloque principal: 1 col en móvil, 3 en md+ */}
       <div className="mx-auto max-w-6xl px-4 py-6 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
         {/* Marca */}
         <div className="flex items-center gap-3 justify-center md:justify-start">
           {brand.logo ? (
-            <img src={brand.logo} alt={brand.name} className="h-5 w-auto opacity-90" />
+            <Image
+              src={brand.logo}                        // ej: "/images/logo-modern.svg" (en /public)
+              alt={brand.name ?? "Barbería"}
+              width={96} height={20}                  // tamaño aprox. de h-5
+              className="h-5 w-auto opacity-90"
+              priority={false}
+            />
           ) : (
             <span className="text-sm font-medium">{brand.name ?? "Barbería"}</span>
           )}
           <span className="sr-only">{brand.name ?? "Barbería"}</span>
         </div>
 
-        {/* Nav: centrado y hace wrap en móvil */}
+        {/* Nav */}
         <nav className="flex justify-center flex-wrap gap-x-4 gap-y-2 text-sm text-white/70">
           <a href="#cuts" className="hover:text-white">Cortes</a>
           <a href="#specialists" className="hover:text-white">Especialistas</a>
@@ -33,7 +41,7 @@ export default function Footer() {
           <a href="#contact" className="hover:text-white">Contacto</a>
         </nav>
 
-        {/* Redes: wrap + centrado en móvil, a la derecha en md+ */}
+        {/* Redes */}
         <div className="flex justify-center md:justify-end gap-2 flex-wrap">
           {brand.whatsapp && (
             <a
@@ -74,7 +82,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Línea inferior: stack en móvil */}
+      {/* Línea inferior */}
       <div className="mx-auto max-w-6xl px-4 pb-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/50">
         <span>© {new Date().getFullYear()} {brand.name ?? "Barbería"}</span>
         <a href="#hero" className="hover:text-white/80">Volver arriba ↑</a>

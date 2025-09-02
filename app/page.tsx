@@ -1,4 +1,5 @@
 // app/page.tsx
+import type { ReactNode } from "react";
 import cfg from "@/lib/site.config";
 import Hero from "@/components/Hero";
 import CutsGrid from "@/components/Cortes";
@@ -8,8 +9,8 @@ import Reviews from "@/components/Reviews";
 import Contact from "@/components/Contact";
 
 export default function Home() {
-  const sections: Record<string, JSX.Element> = {
-    hero:         <Hero data={cfg.content.hero} brand={cfg.brand} theme={cfg.theme} />,
+  const sections: Record<string, ReactNode> = {
+    hero:         <Hero data={cfg.content.hero} brand={cfg.brand} />,
     cuts:         <CutsGrid items={cfg.content.cuts} />,
     specialists:  <Specialists list={cfg.content.specialists} />,
     about:        <About data={cfg.content.about} />,
